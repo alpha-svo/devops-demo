@@ -12,20 +12,15 @@ pipeline{
         }
         stage("Build docker image"){
             steps{
-                script{
+                    sh '/tmp/jenkins-shell/change-docker-permission.sh'
+                    sh '/tmp/jenkins-shell/delete-last-image.sh'
                     sh 'docker build -t alphasvo/devops-demo .'
                 }
             }
         }
-        stage("Stop and delete docker container"){
+        stage("Deploy"){
             steps{
-                sh 'docker stop $(docker ps -lq)'
-                sh 'docker rm $(docker ps -lq)'
-            }
-        }
-        stage("Deploy new docker image"){
-            steps{
-                sh 'docker run --name devops-demo-tomcat -p 8081:8080 -d alphasvo/devops-demo'
+                sh '/tmp/jenkins-shell/check-first-run.sh'
             }
         }
     }
