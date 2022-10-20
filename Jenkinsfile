@@ -12,6 +12,7 @@ pipeline{
         }
         stage("Build docker image"){
             steps{
+                script{
                     sh '/tmp/jenkins-shell/change-docker-permission.sh'
                     sh '/tmp/jenkins-shell/delete-last-image.sh'
                     sh 'docker build -t alphasvo/devops-demo .'
