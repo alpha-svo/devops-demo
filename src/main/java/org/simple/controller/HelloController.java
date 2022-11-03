@@ -8,6 +8,6 @@ public class HelloController {
 
     @GetMapping
     public String hello(){
-        return "Hello World! 第1次部署,修复容器重复问题！";
+        return "Hello World! 2022/11/03 第1次部署！";
     }
 }
